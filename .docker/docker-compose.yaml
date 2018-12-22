@@ -13,7 +13,7 @@ services:
       MYSQL_PASSWORD: gemotest
       MYSQL_ROOT_PASSWORD: gemotest
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --innodb-flush-method=littlesync --innodb-use-native-aio=OFF --log_bin=ON
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --innodb-flush-method=littlesync --innodb-use-native-aio=OFF
 
   webserver:
     restart: always

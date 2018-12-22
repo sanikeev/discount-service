@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class IndexController extends AbstractController
 {
     /**
+     * @Route("/", name="main")
+     * @Route("/admin/{vueRouting}", name="admin")
      * @Route("/{vueRouting}", name="index")
      */
     public function index()
