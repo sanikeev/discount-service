@@ -1,0 +1,40 @@
+version: "3"
+services:
+
+  mysql:
+    restart: always
+    container_name: gemotest-mysql
+    image: mysql:5.7
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: gemotest
+      MYSQL_USER: gemotest
+      MYSQL_PASSWORD: gemotest
+      MYSQL_ROOT_PASSWORD: gemotest
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --innodb-flush-method=littlesync --innodb-use-native-aio=OFF --log_bin=ON
+
+  webserver:
+    restart: always
+    container_name: gemotest-nginx
+    image: nginx:alpine
+    working_dir: /app
+    ports:
+      - "80:80"
+    volumes:
+      - ../:/app
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - backend
+
+  backend:
+    restart: always
+    build: ./fpm
+    container_name: gemotest-fpm
+    working_dir: /app
+    volumes:
+      - ../:/app
+      - ./fpm/php-override.ini:/usr/local/etc/php/conf.d/php-override.ini
+    links:
+      - mysql
