@@ -27,7 +27,7 @@ class ServiceSpecTest extends TestCase
     public function testServicesNotEmpty()
     {
         $dto = new OrderDto();
-        $dto->setService(json_encode([]));
+        $dto->setService([]);
         $rule = new Rules();
         $rule->setRuleParam([
             'services' => [1]
@@ -40,7 +40,7 @@ class ServiceSpecTest extends TestCase
     public function testApplyRuleFail()
     {
         $dto = new OrderDto();
-        $dto->setService(json_encode([1,2,3]));
+        $dto->setService([1,2,3]);
         $rule = new Rules();
         $rule->setRuleParam([
             'services' => [1]
@@ -53,7 +53,7 @@ class ServiceSpecTest extends TestCase
     public function testApplyRule()
     {
         $dto = new OrderDto();
-        $dto->setService(json_encode([1,2,3]));
+        $dto->setService([1,2,3]);
         $rule = new Rules();
         $rule->setRuleParam([
             'services' => [1, 3, 2]

@@ -52,11 +52,9 @@ class RuleController extends AbstractController
     public function create(Request $request)
     {
         $form = $this->createForm(RuleType::class);
-        $form->submit($request->request->all(), true);
+        $form->submit(json_decode($request->getContent(), true), true);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $rule = json_decode($form->get('rule_param')->getData());
-            $form->getData()->setRuleParam($rule);
             $em->persist($form->getData());
             $em->flush();
             return $this->json([], 201);
@@ -73,7 +71,7 @@ class RuleController extends AbstractController
     public function edit(Rules $rule, Request $request)
     {
         $form = $this->createForm(RuleType::class, $rule);
-        $form->submit($request->request->all(), true);
+        $form->submit(json_decode($request->getContent(), true), true);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($form->getData());

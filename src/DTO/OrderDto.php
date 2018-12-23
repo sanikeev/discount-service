@@ -56,9 +56,6 @@ class OrderDto
      */
     public function setService($service): void
     {
-        if (!is_null($service)) {
-            $service = json_decode($service, true);
-        }
         $this->service = $service;
     }
 

@@ -56,7 +56,7 @@ class ServiceController extends AbstractController
     public function create(Request $request)
     {
         $form = $this->createForm(ServiceType::class);
-        $form->submit($request->request->all(), true);
+        $form->submit(json_decode($request->getContent(), true), true);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($form->getData());
@@ -75,7 +75,7 @@ class ServiceController extends AbstractController
     public function edit(Service $service, Request $request, SerializerInterface $serializer)
     {
         $form = $this->createForm(ServiceType::class, $service);
-        $form->submit($request->request->all(), true);
+        $form->submit(json_decode($request->getContent(), true), true);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($form->getData());

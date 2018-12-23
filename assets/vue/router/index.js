@@ -15,11 +15,11 @@ export default new VueRouter({
     { path: '/', component: Index },
     { path: '/admin', component: adminIndex },
     { path: '/admin/rules', component: rulesIndex },
-    { path: '/admin/create', component: rulesMutation },
-    { path: '/admin/edit/{id}', component: rulesMutation },
+    { path: '/admin/rules/create', component: rulesMutation },
+    { path: '/admin/rules/edit/{id}', component: rulesMutation },
     { path: '/admin/services', component: servicesIndex },
-    { path: '/admin/create', component: servicesMutation },
-    { path: '/admin/edit/{id}', component: servicesMutation },
+    { path: '/admin/services/create', component: servicesMutation },
+    { path: '/admin/services/edit/{id}', component: servicesMutation },
     { path: '*', redirect: '/' }
   ],
 });

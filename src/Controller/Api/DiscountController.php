@@ -36,7 +36,7 @@ class DiscountController extends AbstractController
         /** @var Rules[] $ruleList */
         $ruleList = $em->getRepository(Rules::class)->findAll();
         $form = $this->createForm(OrderType::class);
-        $form->submit($request->request->all(), true);
+        $form->submit(json_decode($request->getContent(), true), true);
         if ($form->isSubmitted() && $form->isValid()) {
             $rule = $service->getDiscount($form->getData(), $ruleList);
             return $this->json([
