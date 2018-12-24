@@ -104,6 +104,9 @@ class OrderDto
      */
     public function setPhone($phone): void
     {
+        if (!is_null($phone)) {
+            $phone = preg_replace('/D+/', '', $phone);
+        }
         $this->phone = $phone;
     }
 
