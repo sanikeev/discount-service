@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row ">
-            <h1>Форма заказа</h1>
+            <h1>Форма скидки</h1>
         </div>
 
         <div class="row">
@@ -40,7 +40,8 @@
                         <label for="phone_filled" class="col-sm-4 col-md-4 col-form-label text-right">Телефон
                             заполнен</label>
                         <div class="col-sm-6 col-md-6">
-                            <input type="checkbox" v-bind:value="true" class="form-check-input form-control" id="phone_filled"
+                            <input type="checkbox" v-bind:value="true" class="form-check-input form-control"
+                                   id="phone_filled"
                                    v-model="form.rule_param.phone_filled">
                         </div>
                     </div>
@@ -48,7 +49,8 @@
                         <label for="phone" class="col-sm-6 col-md-4 col-form-label text-right">Последние 4 цифры
                             телефона</label>
                         <div class="col-sm-6 col-md-6">
-                            <input :disabled="!form.rule_param.phone_filled" type="text" class="form-control" maxlength="4" id="phone"
+                            <input :disabled="!form.rule_param.phone_filled" type="text" class="form-control"
+                                   maxlength="4" id="phone"
                                    v-model="form.rule_param.phone_last_digits">
                         </div>
                     </div>
@@ -99,7 +101,7 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-md-4 col-form-label"></label>
                     <div class="col-sm-6 col-md-6">
-                        <button type="submit" class="btn btn-primary">Создать</button>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
                         <button type="reset" class="btn btn-danger">Сброс</button>
                     </div>
                 </div>
@@ -138,6 +140,20 @@
         isSubmitted: false
       }
     },
+    beforeCreate() {
+      rules.get(this.$route.params.id).then(data => {
+        this.form.title = data.title;
+        this.form.discount_value = data.discountValue;
+        this.form.rule_param.services = data.ruleParam.services;
+        this.form.rule_param.birthday_week_before = data.ruleParam.birthday_week_before;
+        this.form.rule_param.birthday_week_after = data.ruleParam.birthday_week_after;
+        this.form.rule_param.phone_filled = data.ruleParam.phone_filled;
+        this.form.rule_param.phone_last_digits = data.ruleParam.phone_last_digits;
+        this.form.rule_param.gender = data.ruleParam.gender;
+        this.form.rule_param.started_at = data.ruleParam.started_at;
+        this.form.rule_param.ended_at = data.ruleParam.ended_at;
+      });
+    },
     beforeMount() {
       service.list().then((data) => {
         this.service = data.data;
@@ -145,9 +161,16 @@
     },
     methods: {
       submit() {
-        rules.create(this.form).then(data => {
-          window.location.replace('/admin/rules')
-        })
+        let id = this.$route.params.id
+        if (id) {
+          rules.update(id, this.form).then(data => {
+            window.location.replace('/admin/rules')
+          })
+        } else {
+          rules.create(this.form).then(data => {
+            window.location.replace('/admin/rules')
+          })
+        }
       }
     }
   }
@@ -157,6 +180,7 @@
     form {
         width: 100%;
     }
+
     fieldset {
         border-top: 1px solid #ccc;
     }

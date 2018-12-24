@@ -12,14 +12,14 @@ Vue.use(VueRouter);
 export default new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/', component: Index },
-    { path: '/admin', component: adminIndex },
-    { path: '/admin/rules', component: rulesIndex },
-    { path: '/admin/rules/create', component: rulesMutation },
-    { path: '/admin/rules/edit/{id}', component: rulesMutation },
-    { path: '/admin/services', component: servicesIndex },
-    { path: '/admin/services/create', component: servicesMutation },
-    { path: '/admin/services/edit/{id}', component: servicesMutation },
-    { path: '*', redirect: '/' }
+    { name: 'Home', path: '/', component: Index },
+    { name: 'Admin', path: '/admin', component: adminIndex },
+    { name: 'Rules', path: '/admin/rules', component: rulesIndex },
+    { name: 'RulesCreate', path: '/admin/rules/create', component: rulesMutation },
+    { name: 'RulesEdit', path: '/admin/rules/edit/:id', component: rulesMutation },
+    { name: 'Services', path: '/admin/services', component: servicesIndex },
+    { name: 'ServicesCreate', path: '/admin/services/create', component: servicesMutation },
+    { name: 'ServicesEdit', path: '/admin/services/edit/:id', component: servicesMutation },
+    // { path: '*', redirect: '/' }
   ],
 });

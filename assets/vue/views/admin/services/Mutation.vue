@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div class="row ">
+            <h1>Форма услуги</h1>
+        </div>
         <div class="row">
             <form @submit.prevent="submit()">
                 <div class="form-group row">
@@ -12,7 +15,7 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-md-4 col-form-label"></label>
                     <div class="col-sm-6 col-md-6">
-                        <button type="submit" class="btn btn-primary">Создать</button>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
                     </div>
                 </div>
             </form>
@@ -28,15 +31,27 @@
     data: function () {
       return {
         form: {
-          title: null
+          title: null,
         }
       }
     },
+    beforeCreate() {
+      service.get(this.$route.params.id).then(data => {
+        this.form.title = data.title
+      })
+    },
     methods: {
       submit() {
-        service.create(this.form).then(data => {
-          window.location.replace('/admin/services')
-        })
+        let id = this.$route.params.id
+        if (id) {
+          service.update(id, this.form).then(data => {
+            window.location.replace('/admin/services')
+          })
+        } else {
+          service.create(this.form).then(data => {
+            window.location.replace('/admin/services')
+          })
+        }
       }
     }
   }

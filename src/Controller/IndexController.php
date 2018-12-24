@@ -11,6 +11,7 @@ class IndexController extends AbstractController
      * @Route("/", name="main")
      * @Route("/admin/{vueRouting}", name="admin")
      * @Route("/admin/{vueRouting}/{vueRouting1}")
+     * @Route("/admin/{vueRouting}/{vueRouting1}/{vueRouting2}")
      * @Route("/{vueRouting}", name="index")
      */
     public function index()
